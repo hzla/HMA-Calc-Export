@@ -1,5 +1,8 @@
 For exporting data for Dynamic Calc https://github.com/hzla/Dynamic-Calc
 
+![image](https://github.com/user-attachments/assets/f9810736-6cf9-4540-b330-127344a8ceb1)
+
+
 # How To Use
 Install ruby https://rubyinstaller.org/
 

@@ -19,6 +19,10 @@ def get_moves(moves_array, current_level)
   available_moves.last(4).map { |_, move| move }
 end
 
+def is_integer?(str)
+  /\A-?\d+\z/.match?(str)
+end
+
 def self.showdown_subs
 	{
 	    "Bubblebeam": "Bubble Beam",
@@ -101,7 +105,12 @@ moves_data.each do |line|
 	if line.length == 2
 		type = "Normal"
 	else
-		type = types[line[2].strip.to_i]
+		
+		if is_integer?(line[2].strip)
+			type = types[line[2].strip.to_i]
+		else
+			type = line[2].strip.downcase.capitalize.gsub("Electr", "Electric").gsub("Psychc", "Psychic").gsub("Fight", "Fighting")
+		end
 	end
 
 	moves[move_name]["type"] = type

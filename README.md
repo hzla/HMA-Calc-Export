@@ -15,7 +15,7 @@ copy paste contents of `npoint.json` to the json hosting website npoint.io
 Save your json document and copy the document id in the url 
 ![image](https://github.com/hzla/pk3ds_for_dynamic_calc/assets/5680299/f8e9dac8-2737-49e9-bce6-914f2bf4a912)
 
-https://hzla.github.io/Dynamic-Calc/?data=COPY_DOCUMENT_ID_TO_HERE&dmgGen=3&gen=3&noSwitch=1&types=3
+your calc should now be available at: https://hzla.github.io/Dynamic-Calc/?data=COPY_DOCUMENT_ID_TO_HERE&dmgGen=3&gen=3&noSwitch=1&types=3
 
 If you have added in moves from past your game's generation, set gen in the url to 8.
 

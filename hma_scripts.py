@@ -91,7 +91,7 @@ for idx, trainer in enumerate(data.trainers.stats):
         if trainer.structType == "Normal":
             for mon in trainer.pokemon:
                 output_data += "\n\t" + str(mon.level) + " " + mon.mon
-                output_data += "\n\t" + "IVs: " + str(mon.ivSpread % 32)
+                output_data += "\n\t" + "IVs: " + str(mon.ivSpread * 31 // 255)
                 output_data += "\n\t - " + "LEARNSET"
                 output_data += "\n\t - " + "LEARNSET"
                 output_data += "\n\t - " + "LEARNSET"
@@ -100,7 +100,7 @@ for idx, trainer in enumerate(data.trainers.stats):
         elif trainer.structType == "Items":
             for mon in trainer.pokemon:
                 output_data += "\n\t" + str(mon.level) + " " + mon.mon + " @" + mon.item 
-                output_data += "\n\t" + "IVs: " + str(mon.ivSpread % 32)
+                output_data += "\n\t" + "IVs: " + str(mon.ivSpread * 31 // 255)
                 output_data += "\n\t - " + "LEARNSET"
                 output_data += "\n\t - " + "LEARNSET"
                 output_data += "\n\t - " + "LEARNSET"
@@ -109,7 +109,7 @@ for idx, trainer in enumerate(data.trainers.stats):
         elif trainer.structType == "Moves":
             for mon in trainer.pokemon:
                 output_data += "\n\t" + str(mon.level) + " " + mon.mon 
-                output_data += "\n\t" + "IVs: " + str(mon.ivSpread % 32)
+                output_data += "\n\t" + "IVs: " + str(mon.ivSpread * 31 // 255)
                 output_data += "\n\t - " + mon.move1
                 output_data += "\n\t - " + mon.move2
                 output_data += "\n\t - " + mon.move3
@@ -119,7 +119,7 @@ for idx, trainer in enumerate(data.trainers.stats):
 
             for mon in trainer.pokemon:
                     output_data += "\n\t" + str(mon.level) + " " + mon.mon + " @" + mon.item
-                    output_data += "\n\t" + "IVs: " + str(mon.ivSpread % 32)
+                    output_data += "\n\t" + "IVs: " + str(mon.ivSpread * 31 // 255)
                     output_data += "\n\t - " + mon.move1
                     output_data += "\n\t - " + mon.move2
                     output_data += "\n\t - " + mon.move3

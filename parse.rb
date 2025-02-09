@@ -88,7 +88,7 @@ mondata.each_with_index do |line, i|
 
 		ability = capitalize_words(mondata[i + 18].split("Abilities ")[1].split(",")[0].strip)
 		mons[species]["ab"] = ability
-		mons[species]["type"] = types
+		mons[species]["types"] = types
 		mons[species]["learnset_info"] = {}
 		mons[species]["learnset_info"]["learnset"] = learnset
 		mons[species]["learnset_info"]["tms"] = tms[species.upcase]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}

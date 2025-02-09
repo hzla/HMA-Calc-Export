@@ -14,6 +14,8 @@ Click `run`
 
 navigate inside your Hex Maniac Advance's folder with command prompt or power shell and run `ruby ./parse.rb`
 
+You will need to install ruby if you don't have it. https://rubyinstaller.org/
+
 This will output a json file called `npoint.json` into the same folder as HMA
 
 copy paste contents of `npoint.json` to the json hosting website npoint.io 

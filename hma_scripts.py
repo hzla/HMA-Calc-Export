@@ -156,28 +156,7 @@ tm_move_list = [
     "FLASH", "ROCK SMASH", "WATERFALL", "DIVE"
 ]
 
-# Function to read egg moves from eggmoves.txt
-def get_egg_moves(filename):
-    egg_moves = {}
-    current_pokemon = None
-    with open(filename, 'r') as file:
-        lines = file.readlines()
 
-        for line in lines:
-            line = line.strip()
-
-            # If a line starts with '[', it's a Pokémon name
-            if line.startswith('['):
-                current_pokemon = line.strip('[]')
-                egg_moves[current_pokemon] = []
-            # Otherwise, it's an egg move
-            elif current_pokemon and line:
-                egg_moves[current_pokemon].append(line)
-
-    return egg_moves
-
-# Load egg moves from eggmoves.txt
-egg_moves = get_egg_moves('eggmoves.txt')
 
 # Open the file in write mode (this will create or overwrite the file)
 with open("moves.json", "w") as HMAData:

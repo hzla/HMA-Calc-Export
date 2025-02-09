@@ -272,4 +272,4 @@ end
 p calculate_nature("BROCK", ["GEODUDE", "OMANYTE"], 0x88)
 npoint = {"poks": mons, "moves": moves_json, "formatted_sets": formatted_sets}
 
-File.write("npoint.json", JSON.pretty_generate(npoint))
+File.write("npoint.json", npoint.to_json)

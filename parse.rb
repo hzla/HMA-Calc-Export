@@ -60,6 +60,14 @@ mondata.each_with_index do |line, i|
 		species = capitalize_words(line.split(": ")[1][0..-4])
 		mons[species] = {}
 
+		types = mondata[i + 1].strip
+
+		if types.include?("/")
+			types = types.split("/").map {|s| s.downcase.capitalize}
+		else
+			types = [types.downcase.capitalize]
+		end
+
 		stats = {}
 		stats["hp"] = mondata[i + 2].split("HP ")[1].strip.to_i
 		stats["df"] = mondata[i + 3].split("DEF ")[1].strip.to_i
@@ -80,12 +88,14 @@ mondata.each_with_index do |line, i|
 
 		ability = capitalize_words(mondata[i + 18].split("Abilities ")[1].split(",")[0].strip)
 		mons[species]["ab"] = ability
+		mons[species]["type"] = types
 		mons[species]["learnset_info"] = {}
 		mons[species]["learnset_info"]["learnset"] = learnset
 		mons[species]["learnset_info"]["tms"] = tms[species.upcase]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}
 		mons[species]["bs"] = stats
 	end
 end
+
 
 
 
@@ -167,7 +177,7 @@ trainer_data.each_with_index do |line, i|
 
 
 		offset = 0
-		no_next_pok = ((trainer_data[i + offset + 8][0] =~ /[[:alnum:]]/ ) or (trainer_data[i + offset + 8][0] == "|"))
+		no_next_pok = !trainer_data[i + offset + 8] or ((trainer_data[i + offset + 8][0] =~ /[[:alnum:]]/ ) or (trainer_data[i + offset + 8][0] == "|")) 
 		mon_count = 0
 
 		while !no_next_pok
@@ -269,7 +279,6 @@ trainer_data.each_with_index do |line, i|
 end
 
 
-p calculate_nature("BROCK", ["GEODUDE", "OMANYTE"], 0x88)
 npoint = {"poks": mons, "moves": moves_json, "formatted_sets": formatted_sets}
 
 File.write("npoint.json", JSON.pretty_generate(npoint))

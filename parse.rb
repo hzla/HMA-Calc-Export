@@ -65,7 +65,7 @@ mondata.each_with_index do |line, i|
 		if types.include?("/")
 			types = types.split("/").map {|s| s.downcase.capitalize.gsub("Fight", "Fighting").gsub("Electr", "Electric").gsub("Psychc", "Psychic")}
 		else
-			types = [types.downcase.capitalize]
+			types = [types.downcase.capitalize.gsub("Fight", "Fighting").gsub("Electr", "Electric").gsub("Psychc", "Psychic")]
 		end
 
 		stats = {}

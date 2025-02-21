@@ -1,5 +1,4 @@
 require 'json'
-require 'pry'
 require_relative 'nature_calc'
 
 mondata = File.open("PokemonStats.txt").readlines

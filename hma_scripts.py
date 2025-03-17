@@ -4,7 +4,7 @@ HMAData = open("learnset.json", "w")
 HMAData.write('{')
 for monIndex in range(1, len(data.pokemon.stats)):
     if data.pokemon.names[monIndex].name != '?':
-        HMAData.write('\n\t"' + data.pokemon.names[monIndex].name.replace("\\sm", "-M").replace("\\sf", "-F") + '":\n\t{\n\t\t"Level-Up Learnset":\n\t\t[').upper()
+        HMAData.write('\n\t"' + data.pokemon.names[monIndex].name.replace("\\sm", "-M").replace("\\sf", "-F").upper() + '":\n\t{\n\t\t"Level-Up Learnset":\n\t\t[')
         movesFromLevelLen = 0
         for movesFromLevel in data.pokemon.moves.levelup[monIndex].movesFromLevel:
             if movesFromLevelLen < len(data.pokemon.moves.levelup[monIndex].movesFromLevel) - 1:

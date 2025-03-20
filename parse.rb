@@ -1,5 +1,4 @@
 require 'json'
-require 'pry'
 require_relative 'nature_calc'
 
 mondata = File.open("PokemonStats.txt").readlines
@@ -57,15 +56,15 @@ mons = {}
 mondata.each_with_index do |line, i|
 	next if i == 0 or line.include?("?")
 	if line.include?("{")
-		species = capitalize_words(line.split(": ")[1][0..-4])
+		species = capitalize_words(line.split(": ")[1][0..-4]).strip.gsub("-G", "-Galar").gsub("-A", "-Alola")
 		mons[species] = {}
 
 		types = mondata[i + 1].strip
 
 		if types.include?("/")
-			types = types.split("/").map {|s| s.downcase.capitalize}
+			types = types.split("/").map {|s| s.downcase.capitalize.gsub("Fight", "Fighting").gsub("Electr", "Electric").gsub("Psychc", "Psychic")}
 		else
-			types = [types.downcase.capitalize]
+			types = [types.downcase.capitalize.gsub("Fight", "Fighting").gsub("Electr", "Electric").gsub("Psychc", "Psychic")]
 		end
 
 		stats = {}
@@ -75,7 +74,11 @@ mondata.each_with_index do |line, i|
 		stats["sp"] = mondata[i + 5].split("SP ")[1].strip.to_i
 		stats["sa"] = mondata[i + 6].split("SPA ")[1].strip.to_i
 		stats["sd"] = mondata[i + 7].split("SPD ")[1].strip.to_i
-		learnset = ls_info[species.upcase]["Level-Up Learnset"]
+
+
+		# p species
+
+		learnset = ls_info[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["Level-Up Learnset"]
 
 		learnset.each_with_index do |ls, i|
 			ls[1] = capitalize_words(ls[1])
@@ -88,10 +91,15 @@ mondata.each_with_index do |line, i|
 
 		ability = capitalize_words(mondata[i + 18].split("Abilities ")[1].split(",")[0].strip)
 		mons[species]["ab"] = ability
-		mons[species]["type"] = types
+		mons[species]["types"] = types
 		mons[species]["learnset_info"] = {}
 		mons[species]["learnset_info"]["learnset"] = learnset
-		mons[species]["learnset_info"]["tms"] = tms[species.upcase]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}
+
+		if tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"]
+			mons[species]["learnset_info"]["tms"] = tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}
+		else
+			mons[species]["learnset_info"]["tms"] = []
+		end
 		mons[species]["bs"] = stats
 	end
 end
@@ -157,6 +165,9 @@ trainer_data.each_with_index do |line, i|
 			trainer_counts[tr_title] = 1
 		end
 
+		if tr_title[-1] != " "
+			tr_title = tr_title + " "
+		end
 		
 
 
@@ -172,10 +183,6 @@ trainer_data.each_with_index do |line, i|
 			end
 		end
 
-
-
-
-
 		offset = 0
 		no_next_pok = !trainer_data[i + offset + 8] or ((trainer_data[i + offset + 8][0] =~ /[[:alnum:]]/ ) or (trainer_data[i + offset + 8][0] == "|")) 
 		mon_count = 0
@@ -185,6 +192,11 @@ trainer_data.each_with_index do |line, i|
 			pok_name = capitalize_words(trainer_data[i + offset + 1].strip.split(" ")[1..-1].join(" ").split("@")[0].strip)
 
 			pok_names << pok_name.upcase
+
+			
+
+
+			pok_name = pok_name.gsub("-G", "-Galar").gsub("-A", "-Alola")
 
 
 			nature = calculate_nature(tr_name, pok_names, type_value)
@@ -201,8 +213,16 @@ trainer_data.each_with_index do |line, i|
 				next
 			end
 
+			begin
+				ability = mons[pok_name]["ab"]
+			rescue
+				p "#{pok_name} not found on line: #{i}"
+				break
+			end
 
-			ability = mons[pok_name]["ab"]
+
+
+			
 			sub_index = mon_count
 			item = ""
 
@@ -210,7 +230,6 @@ trainer_data.each_with_index do |line, i|
 
 			if trainer_data[i + offset + 1].include?("@")
 				item = capitalize_words(trainer_data[i + offset + 1].strip.split("@")[1]).gsub("Twistedspoon", "Twisted Spoon").gsub("Brightpowder", "Bright Powder").gsub("Silverpowder", "Silver Powder")
-				p item
 				if item.include?("?")
 					item = ""
 				end

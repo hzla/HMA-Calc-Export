@@ -78,8 +78,6 @@ mondata.each_with_index do |line, i|
 
 		# p species
 
-		learnset = ls_info[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["Level-Up Learnset"]
-
 		learnset.each_with_index do |ls, i|
 			ls[1] = capitalize_words(ls[1])
 			if showdown_subs[ls[1].to_sym]

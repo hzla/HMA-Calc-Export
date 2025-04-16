@@ -6,7 +6,7 @@ For exporting data for Dynamic Calc https://github.com/hzla/Dynamic-Calc
 # How To Use
 Install ruby https://rubyinstaller.org/
 
-copy paste the contents of `hma_scripts.py` into Hex Maniac Advance's automation tool. 
+Copy the files in this repo into your HMA folder. Copy paste the contents of `hma_scripts.py` into Hex Maniac Advance's automation tool. 
 
 ![image](https://github.com/user-attachments/assets/2c739afc-aec2-43de-9b96-f3d2ab63dd3d)
 

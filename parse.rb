@@ -176,6 +176,9 @@ trainer_data.each_with_index do |line, i|
 			trainer_counts[tr_title] = 1
 		end
 
+		if tr_title[-1] != " "
+			tr_title = tr_title + " "
+		end
 		
 
 

@@ -4,13 +4,22 @@ HMAData = open("learnset.json", "w")
 HMAData.write('{')
 for monIndex in range(1, len(data.pokemon.stats)):
     if data.pokemon.names[monIndex].name != '?':
-        HMAData.write('\n\t"' + data.pokemon.names[monIndex].name.replace("\\sm", "-M").replace("\\sf", "-F") + '":\n\t{\n\t\t"Level-Up Learnset":\n\t\t[').upper()
+        HMAData.write('\n\t"' + data.pokemon.names[monIndex].name.replace("\\sm", "-M").replace("\\sf", "-F").upper() + '":\n\t{\n\t\t"Level-Up Learnset":\n\t\t[')
         movesFromLevelLen = 0
         for movesFromLevel in data.pokemon.moves.levelup[monIndex].movesFromLevel:
             if movesFromLevelLen < len(data.pokemon.moves.levelup[monIndex].movesFromLevel) - 1:
-                HMAData.write('\n\t\t\t[' + str(movesFromLevel.pair.level) + ', "' + data.pokemon.moves.names[movesFromLevel.pair.move].name + '"],')
+                try:
+                    HMAData.write('\n\t\t\t[' + str(movesFromLevel.pair.level) + ', "' + data.pokemon.moves.names[movesFromLevel.pair.move].name + '"],')
+                except:
+                    HMAData.write('\n\t\t\t[' + str(movesFromLevel.level) + ', "' + data.pokemon.moves.names[movesFromLevel.move].name + '"],')
+
             else:
-                HMAData.write('\n\t\t\t[' + str(movesFromLevel.pair.level) + ', "' + data.pokemon.moves.names[movesFromLevel.pair.move].name + '"]')
+                try:
+                    HMAData.write('\n\t\t\t[' + str(movesFromLevel.pair.level) + ', "' + data.pokemon.moves.names[movesFromLevel.pair.move].name + '"]')
+                except:
+                    HMAData.write('\n\t\t\t[' + str(movesFromLevel.level) + ', "' + data.pokemon.moves.names[movesFromLevel.move].name + '"]')
+
+
             movesFromLevelLen = movesFromLevelLen + 1
         if monIndex < len(data.pokemon.stats) - 1:
             HMAData.write('\n\t\t]\n\t},')
@@ -18,6 +27,8 @@ for monIndex in range(1, len(data.pokemon.stats)):
             HMAData.write('\n\t\t]\n\t}')
 HMAData.write('\n}')
 HMAData.close()
+
+print("learnsets dumped")
 
 
 # Get Moves
@@ -74,7 +85,8 @@ for (Fakemon, Name) in zip (data.pokemon.stats, data.pokemon.names):
 
 with open(output_file_path, "w") as output_file:
     output_file.write(output_data)
-print(f"Fakemon data saved to {output_file_path}")
+
+print("moves dumped")
 
 # Trainers
 
@@ -131,7 +143,7 @@ for idx, trainer in enumerate(data.trainers.stats):
 
 with open(output_file_path, "w") as output_file:
         output_file.write(output_data)
-print(f"Trainers saved to {output_file_path}")
+print(f"Trainers dumped")
 
 
 # Number of TMs
@@ -171,9 +183,15 @@ with open("moves.json", "w") as HMAData:
             movesFromLevelLen = 0
             for movesFromLevel in data.pokemon.moves.levelup[monIndex].movesFromLevel:
                 if movesFromLevelLen < len(data.pokemon.moves.levelup[monIndex].movesFromLevel) - 1:
-                    HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.pair.move].name}", {movesFromLevel.pair.level}],')
+                    try:
+                        HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.pair.move].name}", {movesFromLevel.pair.level}],')
+                    except:
+                        HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.move].name}", {movesFromLevel.level}],')   
                 else:
-                    HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.pair.move].name}", {movesFromLevel.pair.level}]')
+                    try:
+                        HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.pair.move].name}", {movesFromLevel.pair.level}]')
+                    except:
+                        HMAData.write(f'\n\t\t\t["{data.pokemon.moves.names[movesFromLevel.move].name}", {movesFromLevel.level}]') 
                 movesFromLevelLen += 1
 
             # TM Moves Compatibility
@@ -211,5 +229,4 @@ with open("moves.json", "w") as HMAData:
     
     HMAData.write('\n}')
 
-# Inform the user that the output was written to moves.json
-print("Output written to moves.json")
+print("tms dumped")

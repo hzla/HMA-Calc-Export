@@ -1,5 +1,6 @@
 require 'json'
 require_relative 'nature_calc'
+# require 'pry'
 
 mondata = File.open("PokemonStats.txt").readlines
 tms = JSON.parse(File.open("moves.json").read)
@@ -76,9 +77,13 @@ mondata.each_with_index do |line, i|
 		stats["sd"] = mondata[i + 7].split("SPD ")[1].strip.to_i
 
 
-		# p species
+		begin
+			learnset = ls_info[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["Level-Up Learnset"]
+		rescue
+			learnset = []
+			p "Could not find learnset info for #{species}"
+		end
 
-		learnset = ls_info[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["Level-Up Learnset"]
 
 		learnset.each_with_index do |ls, i|
 			ls[1] = capitalize_words(ls[1])
@@ -95,10 +100,16 @@ mondata.each_with_index do |line, i|
 		mons[species]["learnset_info"] = {}
 		mons[species]["learnset_info"]["learnset"] = learnset
 
-		if tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"]
-			mons[species]["learnset_info"]["tms"] = tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}
-		else
+		begin
+
+			if tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"]
+				mons[species]["learnset_info"]["tms"] = tms[species.upcase.gsub("-GALAR", "-G").gsub("-ALOLA", "-A")]["TM Moves Compatibility"].map {|m| capitalize_words(m.split(" - ")[1])}
+			else
+				mons[species]["learnset_info"]["tms"] = []
+			end
+		rescue
 			mons[species]["learnset_info"]["tms"] = []
+			p "Could not find tm info for #{species}"
 		end
 		mons[species]["bs"] = stats
 	end

@@ -24,8 +24,67 @@ Save your json document and copy the document id in the url
 
 your calc should now be available at: https://hzla.github.io/Dynamic-Calc/?data=COPY_DOCUMENT_ID_TO_HERE&dmgGen=3&gen=3&noSwitch=1&types=3
 
-If you have added in moves from past your game's generation, set gen in the url to 8.
+If you have added in moves or pokemon from past your game's generation, set gen in the url to 8.
 
 replace COPY_DOCUMENT_ID_TO_HERE with your document id you copied earlier
+
+# Further Customization
+
+Again, If you have added in moves or pokemon from past your game's generation, SET GEN IN URL TO 8.
+
+You can set a title for your calc by setting the `title` property in your npoint data source
+
+If you have replaced moves in your rom, you can add a `move_replacements` property.
+
+If you have replaced pokemon, you can add a `poks_replacements` property. 
+
+You can follow this example format 
+
+```
+{"title": "YOUR TITLE",
+  "move_replacements": {
+    "Vice Grip": "Head Smash",
+    "Guillotine": "Bullet Punch",
+    "Fury Attack": "Bug Buzz",
+    "Horn Drill": "Drill Run",
+    "Wrap": "Aqua Jet",
+    "Fissure": "Earth Power",
+    "Smog": "Dark Pulse",
+    "Skull Bash": "2x-Ironbash",
+    "Sky Attack": "Brave Bird",
+    "Thief": "Night Slash",
+    "Nightmare": "Ominous Wind",
+    "Fury Cutter": "X-Scissor",
+    "Stockpile": "Fire Pledge",
+    "Arm Thrust": "Force Palm",
+    "Ice Ball": "Ice Shard",
+    "Astonish": "Shadow Sneak",
+    "Air Cutter": "Air Slash",
+    "Metal Sound": "Flash Cannon",
+    "Sheer Cold": "Draco Meteor",
+    "Icicle Spear": "Icicle Crash",
+    "Covet": "Dualwingbeat",
+  },
+  "poks_replacements": {
+   "Slowpoke": "Slowpoke-Galar",
+   "Slowbro": "Slowbro-Galar",
+   "Slowking": "Slowking-Galar",
+   "Sneasel": "Sneasel-Hisui",
+   "Ditto": "Overqwil",
+   "Qwilfish": "Qwilfish-Hisui",
+   "Smeargle": "Sneasler",
+   "Chimecho": "Melmetal",
+   "Far'fetched": "Meltan",
+   "Sandshrew": "Sandshrew-Alola",
+   "Sandslash": "Sandslash-Alola",
+   "Voltorb": "Voltorb-Hisui",
+   "Electrode": "Electrode-Hisui",
+   "Exeggutor": "Exeggutor-Alola",
+   "Growlithe": "Growlithe-Hisui",
+   "Arcanine": "Arcanine-Hisui",
+   "Raichu": "Raichu-Alola",
+  },"poks":{"Bulbasaur":{...auto generated data goes here
+
+```
 
 

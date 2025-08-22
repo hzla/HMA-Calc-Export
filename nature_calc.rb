@@ -20,7 +20,8 @@ ASCII_TABLE = {
   'b' => 214, 'c' => 215, 'd' => 216, 'e' => 217, 'f' => 218, 'g' => 219, 'h' => 220,
   'i' => 221, 'j' => 222, 'k' => 223, 'l' => 224, 'm' => 225, 'n' => 226, 'o' => 227,
   'p' => 228, 'q' => 229, 'r' => 230, 's' => 231, 't' => 232, 'u' => 233, 'v' => 234,
-  'w' => 235, 'x' => 236, 'y' => 237, 'z' => 238, '2' => 163, '-' => 174 
+  'w' => 235, 'x' => 236, 'y' => 237, 'z' => 238, '2' => 163, '-' => 174, '♂' => 181,
+  '♀' => 182
 }
 
 def get_ascii_value(char)
@@ -56,7 +57,7 @@ def calculate_nature(trainer_name, pokemon_list, type)
   # Calculate nature for each Pokemon
   pokemon_list.each do |pokemon|
     pokemon_hash = accumulated_hash  # Reset pokemon_hash for each new Pokemon
-    pokemon_name = pokemon.upcase
+    pokemon_name = pokemon.upcase.gsub(/-M$/, "♂").gsub(/-F$/, "♀")
 
     # Calculate Pokemon hash
     pokemon_name.each_char do |char|

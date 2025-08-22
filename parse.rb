@@ -3,7 +3,13 @@ require_relative 'nature_calc'
 # require 'pry'
 
 mondata = File.open("PokemonStats.txt").readlines
-tms = JSON.parse(File.open("moves.json").read)
+
+begin
+	tms = JSON.parse(File.open("moves.json").read) 
+rescue
+	p "no tms file detected"
+	tms = {}
+end
 
 ls_info = JSON.parse(File.open("learnset.json").read)
 
@@ -48,8 +54,15 @@ def self.showdown_subs
 	    "Softboiled": "Soft-Boiled",
 	    "Vicegrip": "Vise Grip",
 	    "Hi Jump Kick": "High Jump Kick",
+    	"Blackglasses": "Black Glasses",
+	    "Brightpowder": "Bright Powder",
+	    "Nevermeltice": "Never-Melt Ice", 
+	    "Silverpowder": "Silver Powder",
+	    "Twistedspoon": "Twisted Spoon"
 	}
 end
+
+
 
 types =  ["None", "Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "????", "Fire", "Water","Grass","Electric","Psychic","Ice","Dragon","Dark"]
 mons = {}
@@ -240,7 +253,15 @@ trainer_data.each_with_index do |line, i|
 			
 
 			if trainer_data[i + offset + 1].include?("@")
-				item = capitalize_words(trainer_data[i + offset + 1].strip.split("@")[1]).gsub("Twistedspoon", "Twisted Spoon").gsub("Brightpowder", "Bright Powder").gsub("Silverpowder", "Silver Powder")
+				item = capitalize_words(trainer_data[i + offset + 1].strip.split("@")[1])
+
+
+				if showdown_subs[item.to_sym]
+					item = showdown_subs[item.to_sym]
+				end
+
+
+
 				if item.include?("?")
 					item = ""
 				end

@@ -70,7 +70,7 @@ mons = {}
 mondata.each_with_index do |line, i|
 	next if i == 0 or line.include?("?")
 	if line.include?("{")
-		species = capitalize_words(line.split(": ")[1][0..-4]).strip.gsub("-G", "-Galar").gsub("-A", "-Alola")
+		species = capitalize_words(line.split(": ")[1][0..-4]).strip.gsub("-G", "-Galar").gsub("-A", "-Alola").gsub("'", "’")
 		mons[species] = {}
 
 		types = mondata[i + 1].strip
@@ -215,7 +215,7 @@ trainer_data.each_with_index do |line, i|
 			pok_lvl = trainer_data[i + offset + 1].strip.split(" ")[0].to_i
 			pok_name = capitalize_words(trainer_data[i + offset + 1].strip.split(" ")[1..-1].join(" ").split("@")[0].strip)
 
-			pok_names << pok_name.upcase
+			pok_names << pok_name.upcase.gsub("'", "’")
 
 			
 

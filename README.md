@@ -14,6 +14,8 @@ Click `run`
 
 navigate inside your Hex Maniac Advance's folder with command prompt or power shell and run `ruby ./parse.rb`
 
+If you encounter a `invalid byte sequence in UTF-8` error, you can convert your .txt files to UTF-8 format here https://subtitletools.com/convert-text-files-to-utf8-online
+
 You will need to install ruby if you don't have it. https://rubyinstaller.org/
 
 This will output a json file called `npoint.json` into the same folder as HMA

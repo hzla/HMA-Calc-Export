@@ -34,6 +34,8 @@ replace COPY_DOCUMENT_ID_TO_HERE with your document id you copied earlier
 
 Again, If you have added in moves or pokemon from past your game's generation, SET GEN IN URL TO 8.
 
+If your rom has custom pokemon/fakemon or pokemon that are not spelled the same way they usually are in default Showdown damage calc, add `&customPoks=1` to the url
+
 You can set a title for your calc by setting the `title` property in your npoint data source
 
 If you have replaced moves in your rom, you can add a `move_replacements` property.
